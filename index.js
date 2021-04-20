@@ -5,7 +5,7 @@
 
 import express from "express";
 import { readFile, writeFile, existsSync, copyFileSync } from "fs";
-const { Storage } = require("@google-cloud/storage");
+import { Storage } from "@google-cloud/storage";
 
 const app = express();
 const port = process.env.PORT | 8080;
