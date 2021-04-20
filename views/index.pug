@@ -1,0 +1,22 @@
+// Michael Grace (michael-grace.uk)
+html 
+    head 
+        title The Merry Competition 
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js") 
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js") 
+    body 
+        style(type="text/css"). 
+            h1 {
+                font-size: 500%;
+            }
+        div(class="container text-center")
+            h1(class="mb-5") The Merry Compeitition 
+            div(class="card-deck")
+                each person in scores
+                    div(class="card bg-light")
+                        div(class="card-body text-center")
+                            h1(class="card-text")= person.score 
+                        div(class="card-footer text-center")
+                            h4(class="card-text")= person.name
+
