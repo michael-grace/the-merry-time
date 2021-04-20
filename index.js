@@ -4,13 +4,37 @@
  */
 
 import express from "express";
-import { readFile, writeFile } from "fs";
+import { readFile, writeFile, existsSync, copyFileSync } from "fs";
+const { Storage } = require("@google-cloud/storage");
+
 const app = express();
 const port = process.env.PORT | 8080;
 
+const storage = new Storage();
+var bucket;
+
+if (process.env.GCLOUD_STORAGE_BUCKET) {
+    bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+
+    bucket.getFiles((err, files) => {
+        if (err) {
+            throw err;
+        }
+        files.forEach((element) => {
+            if (element.name === "scores.json") {
+                element.download({ destination: "/tmp/scores.json" });
+            }
+        });
+    });
+}
+
 var appData;
 
-readFile("scores.json", (err, data) => {
+if (!existsSync("tmp/scores.json")) {
+    copyFileSync("scores.json", "/tmp/scores.json");
+}
+
+readFile("/tmp/scores.json", (err, data) => {
     if (err) {
         throw err;
     }
@@ -19,11 +43,15 @@ readFile("scores.json", (err, data) => {
 
 // No, this doesn't get it to send back a 500
 const writeback = async() => {
-    writeFile("scores.json", JSON.stringify(appData, null, 4), (err) => {
+    writeFile("/tmp/scores.json", JSON.stringify(appData, null, 4), (err) => {
         if (err) {
             console.log("Error:", err);
         }
     });
+
+    if (process.env.GCLOUD_STORAGE_BUCKET) {
+        bucket.upload("/tmp/scores.json");
+    }
 };
 
 app.set("view engine", "pug");
