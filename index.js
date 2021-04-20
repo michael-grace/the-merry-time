@@ -30,7 +30,7 @@ if (process.env.GCLOUD_STORAGE_BUCKET) {
 
 var appData;
 
-if (!existsSync("tmp/scores.json")) {
+if (!existsSync("/tmp/scores.json")) {
     copyFileSync("scores.json", "/tmp/scores.json");
 }
 
