@@ -20,9 +20,9 @@ if (process.env.GCLOUD_STORAGE_BUCKET) {
         if (err) {
             throw err;
         }
-        files.forEach((element) => {
+        files.forEach(async(element) => {
             if (element.name === "scores.json") {
-                element.download({ destination: "/tmp/scores.json" });
+                await element.download({ destination: "/tmp/scores.json" });
             }
         });
     });
