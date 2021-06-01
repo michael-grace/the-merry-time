@@ -2,21 +2,17 @@
 html 
     head 
         title The Merry Competition 
-        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
-        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js") 
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js") 
+        meta(name="viewport" content="width=device-width, initial-scale=1")
     body 
         style(type="text/css"). 
-            h1 {
-                font-size: 500%;
-            }
-        div(class="container text-center")
-            h1(class="mb-5") The Merry Compeitition 
+            @import url("/styles.css")
+        div(class="container")
+            h1(class="title") The Merry Competition 
             div(class="card-deck")
                 each person in scores
-                    div(class="card bg-light")
-                        div(class="card-body text-center")
-                            h1(class="card-text")= person.score 
-                        div(class="card-footer text-center")
-                            h4(class="card-text")= person.name
+                    div(class="card")
+                        div(class="card-body")
+                            h1= person.score 
+                        div(class="card-footer")
+                            p(class="footer-text")= person.name
 

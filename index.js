@@ -58,6 +58,7 @@ async function main() {
 
     app.set("view engine", "pug");
     app.set("views", "views");
+    app.use(express.static("public"));
 
     app.get("/data", (_, res) => {
         res.json(appData);
@@ -70,6 +71,10 @@ async function main() {
             }),
         });
     });
+
+    app.get("/styles.css", (_, res) => {
+        res.sendFile("styles.css");
+    })
 
     app.get("/add/:name/:confirm?", (req, res) => {
         let name = req.params.name;
