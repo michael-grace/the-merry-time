@@ -1,4 +1,11 @@
 runtime: nodejs14
+service: default
+
+handlers:
+  - url: /.*
+    redirect_http_response_code: 301
+    script: auto
+    secure: always
 
 env_variables:
-    GCLOUD_STORAGE_BUCKET: BUCKET_NAME
+  GCLOUD_STORAGE_BUCKET: BUCKET_NAME
